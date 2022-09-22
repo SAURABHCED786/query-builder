@@ -6,3 +6,12 @@
   margin-top: 22px;
   text-align: end;
 }
+
+.groupBtn {
+  margin-top: 22px;
+  text-align: end;
+}
+
+span.addGroup {
+  margin-inline: 10px;
+}
