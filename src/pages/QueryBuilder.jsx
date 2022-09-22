@@ -70,92 +70,111 @@ function QueryBuilder() {
       <Page title="Query Builder">
         <Card sectioned>
           <Grid >
-            <Grid.Cell columnSpan={{ xs: 6, sm: 2, md: 2, lg: 2, xl: 2 }}>
+            <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 3, lg: 2, xl: 2 }}>
               <Tag>Hello Saurabh</Tag>
             </Grid.Cell>
           </Grid>
-          <Card sectioned>
-            <Stack vertical spacing="extraTight">
-              <FormLayout>
-                {addRow.map((singleRow, index) => {
-                  return (
-                    <FormLayout.Group key={index} condensed>
-                      <Select
-                        label="Select Box 1"
-                        placeholder="Select"
-                        options={['A', 'B', 'C', 'D']}
-                        value={singleRow?.sel1}
-                        onChange={(e) => {
-                          handleSelect1(e, index)
-                        }}
-                        error={''}
-                      />
-                      <Select
-                        label="Select Box 2"
-                        placeholder="Select"
-                        options={options2}
-                        value={singleRow?.sel2}
-                        onChange={(e) => {
-                          handleSelect2(e, index)
-                        }}
-                        error={''}
-                      />
-                      {
-                        singleRow?.sel2 === 'equals' ? (
+          <Stack vertical spacing="extraTight">
+            <FormLayout>
+              {addRow.map((singleRow, index) => {
+                return (
+                  <FormLayout.Group key={index} condensed>
+                    <Card sectioned>
+                      <Grid>
+                        <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
+                          <Select
+                            label="Select Box 1"
+                            placeholder="Select"
+                            options={['A', 'B', 'C', 'D']}
+                            value={singleRow.sel1}
+                            onChange={(e) => {
+                              handleSelect1(e, index)
+                            }}
+                            error={''}
+                          />
+
+                        </Grid.Cell>
+                        <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
                           <Select
                             label="Select Box 2"
                             placeholder="Select"
-                            options={['A', 'B', 'C', 'D']}
-                            value={singleRow?.sel3}
+                            options={options2}
+                            value={singleRow?.sel2}
                             onChange={(e) => {
-                              handleSelect3(e, index)
+                              handleSelect2(e, index)
                             }}
                             error={''}
                           />
-                        ) : (
-                          <TextField
-                            id='inputVal'
-                            name='inputVal'
-                            label="Input Field"
-                            type="text"
-                            value={singleRow?.inpt}
+                        </Grid.Cell>
+                        <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
+                          {
+                            singleRow?.sel2 === 'equals' ? (
+                              <Select
+                                label="Select Box 2"
+                                placeholder="Select"
+                                options={['A', 'B', 'C', 'D']}
+                                value={singleRow?.sel3}
+                                onChange={(e) => {
+                                  handleSelect3(e, index)
+                                }}
+                                error={''}
+                              />
+                            ) : (
+                              <TextField
+                                id='inputVal'
+                                name='inputVal'
+                                label="Input Field"
+                                type="text"
+                                value={singleRow?.inpt}
+                                onChange={(e) => {
+                                  handelInputChange(e, index)
+                                }}
+                                error={''}
+                                autoComplete="off"
+                              />
+                            )
 
-                            onChange={(e) => {
-                              handelInputChange(e, index)
-                            }}
-                            error={''}
-                            autoComplete="off"
-                          />
-                        )
-
-                      }
+                          }
+                        </Grid.Cell>
+                      </Grid>
 
                       {addRow.length > 1 && (
                         <Grid >
-                          <Grid.Cell columnSpan={{ xs: 2, sm: 1, md: 12, lg: 6, xl: 11 }}>
+                          <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 12 }}>
                             <div className='delBtn'>
                               <Button onClick={() => addHandelRowRemove(index)} destructive>Delete</Button>
                             </div>
                           </Grid.Cell>
                         </Grid>
                       )}
-                    </FormLayout.Group>
-                  )
-                })}
-                <Grid >
-                  <Grid.Cell columnSpan={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
-                    <div className='delBtn'>
-                      <Button onClick={addHandelRowAdd} plain>Add Rows</Button>
-                    </div>
-                  </Grid.Cell>
-                </Grid>
-              </FormLayout>
-              <InlineError message={''} fieldID={''} />
-            </Stack>
-          </Card>
+                      {addRow.length - 1 === index && (
+                        <Grid >
+                          <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 12 }}>
+                            <div className='delBtn'>
+                              <Button onClick={addHandelRowAdd} plain>Add Rows</Button>
+                            </div>
+                          </Grid.Cell>
+                        </Grid>
+                      )
+                      }
+                    </Card>
+                  </FormLayout.Group>
+                )
+              })
+              }
+            </FormLayout>
+            <InlineError message={''} fieldID={''} />
+          </Stack>
+          <Grid >
+            <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 12 }}>
+              <div className='delBtn'>
+                <Button onClick={addHandelRowAdd} primary>Add Grpups</Button>
+              </div>
+            </Grid.Cell>
+          </Grid>
         </Card>
       </Page>
-    </div>
+    </div >
   )
 }
 
