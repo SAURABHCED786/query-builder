@@ -47,19 +47,15 @@ function Rows({ main, setMain, group, handleSave }) {
 
   useEffect(() => {
     const newData = main.map(grp => {
-      // console.log(grp,"mygrp");
       if (grp.groupId === group.groupId) return { ...grp, row: addRow }
       return grp;
     })
-    // console.log(newData);
     setMain(newData)
   }, [addRow])
 
 
-
   const handelGroupRemove = (g) => {
     const updated = main.filter(rm => rm.groupId !== g)
-    console.log(updated, "updated");
     setMain([...updated])
   }
 
@@ -70,7 +66,6 @@ function Rows({ main, setMain, group, handleSave }) {
   }
 
   const handleSelect1 = (value, index) => {
-    // console.log(value,"val");
     setSel1(value);
     const newRow = addRow.map(row => {
       if (row.rowId === index) return { ...row, sel1: value }
@@ -79,7 +74,6 @@ function Rows({ main, setMain, group, handleSave }) {
     setAddRow(newRow)
   }
   const handleSelect2 = (value, index) => {
-    // console.log(value,"val");
     setSel2(value);
     const newRow = addRow.map(row => {
       if (row.rowId === index) return { ...row, sel2: value }
@@ -88,7 +82,7 @@ function Rows({ main, setMain, group, handleSave }) {
     setAddRow(newRow)
   }
   const handleSelect3 = (value, index) => {
-    // console.log(value,"val");
+
     setSel3(value);
     const newRow = addRow.map(row => {
       if (row.rowId === index) return { ...row, sel3: value }
@@ -97,27 +91,12 @@ function Rows({ main, setMain, group, handleSave }) {
     setAddRow(newRow)
   }
 
+
   useEffect(() => {
     if (handleSave) {
-      main.forEach(rows => {
-        rows.row.forEach(rowData => {
-          if (rowData.sel1 === "") {
-            setErrorSal1(true);
-          } else if (rowData.sel1 !== "") {
-            setErrorSal1(false);
-          }
-          if (rowData.sel2 === "") {
-            setErrorSal2(true);
-          } else if (rowData.sel2 !== "") {
-            setErrorSal2(false);
-          }
-          if (rowData.sel3 === "") {
-            setErrorSal3(true);
-          } else if (rowData.sel3 !== "") {
-            setErrorSal3(false);
-          }
-        })
-      });
+      setErrorSal1(true)
+      setErrorSal2(true)
+      setErrorSal3(true)
     }
   })
 
@@ -149,9 +128,9 @@ function Rows({ main, setMain, group, handleSave }) {
                         options={['A', 'B', 'C', 'D']}
                         value={singleRow.sel1}
                         onChange={(e) => {
-                          handleSelect1(e, singleRow.rowId)
+                          handleSelect1(e, singleRow.rowId, singleRow.sel1)
                         }}
-                        error={errorSal1}
+                        error={singleRow.sel1?false:errorSal1}
                       />
                     </Grid.Cell>
                     <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
@@ -163,7 +142,7 @@ function Rows({ main, setMain, group, handleSave }) {
                         onChange={(e) => {
                           handleSelect2(e, singleRow.rowId)
                         }}
-                        error={errorSal2}
+                        error={singleRow.sel2?false:errorSal2}
                       />
                     </Grid.Cell>
                     {
@@ -177,7 +156,7 @@ function Rows({ main, setMain, group, handleSave }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={errorSal3}
+                            error={singleRow.sel3?false:errorSal3}
                           />
                         </Grid.Cell>
                       ) : (
@@ -191,7 +170,7 @@ function Rows({ main, setMain, group, handleSave }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={errorSal3}
+                            error={singleRow.sel3?false:errorSal3}
                             autoComplete="off"
                           />
                         </Grid.Cell>
