@@ -13,12 +13,14 @@ import {
 import { DeleteMajor } from '@shopify/polaris-icons';
 import { useState } from 'react';
 
-function Rows({ main, setMain, group }) {
+function Rows({ main, setMain, group, handleSave }) {
 
   const [sel1, setSel1] = useState("");
   const [sel2, setSel2] = useState("");
   const [sel3, setSel3] = useState("");
-
+  const [errorSal1, setErrorSal1] = useState(false);
+  const [errorSal2, setErrorSal2] = useState(false);
+  const [errorSal3, setErrorSal3] = useState(false);
   const [addRow, setAddRow] = useState(
     [
       {
@@ -42,10 +44,10 @@ function Rows({ main, setMain, group }) {
       ]
     )
   }
-  // console.log(main);
 
   useEffect(() => {
     const newData = main.map(grp => {
+      // console.log(grp,"mygrp");
       if (grp.groupId === group.groupId) return { ...grp, row: addRow }
       return grp;
     })
@@ -54,9 +56,11 @@ function Rows({ main, setMain, group }) {
   }, [addRow])
 
 
+
   const handelGroupRemove = (g) => {
-    const updatedData= main.filter(rm=>rm.groupId!==g)
-    setMain(updatedData);
+    const updated = main.filter(rm => rm.groupId !== g)
+    console.log(updated, "updated");
+    setMain([...updated])
   }
 
   const addHandelRowRemove = (index) => {
@@ -93,6 +97,31 @@ function Rows({ main, setMain, group }) {
     setAddRow(newRow)
   }
 
+  useEffect(() => {
+    if (handleSave) {
+      main.forEach(rows => {
+        rows.row.forEach(rowData => {
+          if (rowData.sel1 === "") {
+            setErrorSal1(true);
+          } else if (rowData.sel1 !== "") {
+            setErrorSal1(false);
+          }
+          if (rowData.sel2 === "") {
+            setErrorSal2(true);
+          } else if (rowData.sel2 !== "") {
+            setErrorSal2(false);
+          }
+          if (rowData.sel3 === "") {
+            setErrorSal3(true);
+          } else if (rowData.sel3 !== "") {
+            setErrorSal3(false);
+          }
+        })
+      });
+    }
+  })
+
+
   const options2 = [
     { label: 'Contains', value: 'contains' },
     { label: 'Equals', value: 'equals' },
@@ -110,7 +139,7 @@ function Rows({ main, setMain, group }) {
           {addRow.map((singleRow, index) => {
             return (
               <FormLayout.Group key={index} condensed>
-                <p>{singleRow.rowId}</p>
+                {/* <p>{singleRow.rowId}</p> */}
                 <Card sectioned>
                   <Grid>
                     <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
@@ -122,7 +151,7 @@ function Rows({ main, setMain, group }) {
                         onChange={(e) => {
                           handleSelect1(e, singleRow.rowId)
                         }}
-                        error={''}
+                        error={errorSal1}
                       />
                     </Grid.Cell>
                     <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
@@ -134,7 +163,7 @@ function Rows({ main, setMain, group }) {
                         onChange={(e) => {
                           handleSelect2(e, singleRow.rowId)
                         }}
-                        error={''}
+                        error={errorSal2}
                       />
                     </Grid.Cell>
                     {
@@ -148,7 +177,7 @@ function Rows({ main, setMain, group }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={''}
+                            error={errorSal3}
                           />
                         </Grid.Cell>
                       ) : (
@@ -162,7 +191,7 @@ function Rows({ main, setMain, group }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={''}
+                            error={errorSal3}
                             autoComplete="off"
                           />
                         </Grid.Cell>
