@@ -33,6 +33,7 @@ function Rows({ main, setMain, group, handleSave }) {
   );
 
   const addHandelRowAdd = () => {
+
     setAddRow(
       [...addRow,
       {
@@ -108,11 +109,6 @@ function Rows({ main, setMain, group, handleSave }) {
   ];
   return (
     <Card sectioned>
-      <Grid >
-        <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 3, lg: 2, xl: 2 }}>
-          <Tag>Hello Saurabh</Tag>
-        </Grid.Cell>
-      </Grid>
       <Stack vertical spacing="extraTight">
         <FormLayout>
           {addRow.map((singleRow, index) => {
@@ -130,7 +126,7 @@ function Rows({ main, setMain, group, handleSave }) {
                         onChange={(e) => {
                           handleSelect1(e, singleRow.rowId, singleRow.sel1)
                         }}
-                        error={singleRow.sel1?false:errorSal1}
+                        error={singleRow.sel1 ? false : errorSal1}
                       />
                     </Grid.Cell>
                     <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
@@ -142,7 +138,7 @@ function Rows({ main, setMain, group, handleSave }) {
                         onChange={(e) => {
                           handleSelect2(e, singleRow.rowId)
                         }}
-                        error={singleRow.sel2?false:errorSal2}
+                        error={singleRow.sel2 ? false : errorSal2}
                       />
                     </Grid.Cell>
                     {
@@ -156,7 +152,7 @@ function Rows({ main, setMain, group, handleSave }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={singleRow.sel3?false:errorSal3}
+                            error={singleRow.sel3 ? false : errorSal3}
                           />
                         </Grid.Cell>
                       ) : (
@@ -170,7 +166,7 @@ function Rows({ main, setMain, group, handleSave }) {
                             onChange={(e) => {
                               handleSelect3(e, singleRow.rowId)
                             }}
-                            error={singleRow.sel3?false:errorSal3}
+                            error={singleRow.sel3 ? false : errorSal3}
                             autoComplete="off"
                           />
                         </Grid.Cell>
@@ -188,7 +184,7 @@ function Rows({ main, setMain, group, handleSave }) {
                     <Grid >
                       <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 6, lg: 3, xl: 3 }}>
                         <div className='delBtn'>
-                          <Button onClick={addHandelRowAdd} plain>Add Rows</Button>
+                          <Button onClick={addHandelRowAdd} index={index}  plain>Add Rows</Button>
                         </div>
                       </Grid.Cell>
                     </Grid>
